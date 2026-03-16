@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Rescue Robot Dashboard</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#111;
+color:white;
+text-align:center;
+}
+
+.container{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:30px;
+}
+
+.box{
+background:#222;
+padding:20px;
+border-radius:10px;
+width:250px;
+}
+
+.sensor{
+font-size:22px;
+margin:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Rescue Robot Dashboard</h1>
+
+<h2>Camera Feed</h2>
+
+<img src="/video_feed" width="640">
+
+<div class="container">
+
+<div class="box">
+<h3>Temperature</h3>
+<div class="sensor">
+<span id="temp">--</span> °C
+</div>
+</div>
+
+<div class="box">
+<h3>Humidity</h3>
+<div class="sensor">
+<span id="humidity">--</span> %
+</div>
+</div>
+
+<div class="box">
+<h3>Gas Level</h3>
+<div class="sensor">
+<span id="gas">--</span>
+</div>
+</div>
+
+</div>
+
+<script>
+
+function updateSensors(){
+
+fetch('/sensor_data')
+.then(response => response.json())
+.then(data => {
+
+document.getElementById("temp").innerText =
+data.temperature ?? "--";
+
+document.getElementById("humidity").innerText =
+data.humidity ?? "--";
+
+document.getElementById("gas").innerText =
+data.gas ?? "--";
+
+});
+
+}
+
+setInterval(updateSensors,2000);
+updateSensors();
+
+</script>
+
+</body>
+</html>

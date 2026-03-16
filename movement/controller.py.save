@@ -90,3 +90,9 @@ class MovementController:
         self.RR_PWM.value = 0
         
     
+def cleanup(self):
+        self.stop()
+        self.L_STBY.off()
+        self.R_STBY.off()
+tail -10 /home/pi/Rescue_robot/movement/controller.py
+
